@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nenxa — Your digital life, made simple</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+  :root{
+    --blue:#174A63;
+    --blue-dark:#123D52;
+    --blue-soft:#E7F5FB;
+    --blue-softer:#F4FAFD;
+    --navy:#123D52;
+    --muted:#60727C;
+    --white:#FFFFFF;
+
+    --radius-pill:100px;
+  }
+
+
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+
+
+  body{
+    font-family:'Manrope', Arial, sans-serif;
+    background:var(--white);
+    color:var(--navy);
+    min-height:100vh;
+  }
+
+
+  :focus-visible{
+    outline:2px solid var(--blue-dark);
+    outline-offset:3px;
+  }
+
+
+  button{
+    font-family:inherit;
+    cursor:pointer;
+    border:none;
+  }
+
+
+  /* ---------- FULL SCREEN ---------- */
+
+  .stage{
+    min-height:100vh;
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:0;
+  }
+
+
+  .screen{
+    width:100%;
+    max-width:none;
+
+    min-height:100vh;
+    max-height:none;
+
+    background:var(--white);
+
+    border-radius:0;
+    box-shadow:none;
+
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    flex-direction:column;
+  }
+
+
+  /* ---------- TOP BAR ---------- */
+
+  .top-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:24px 26px 0;
+  }
+
+
+  .logo{
+    font-weight:800;
+    font-size:19px;
+
+    letter-spacing:-0.02em;
+
+    color:var(--navy);
+
+    display:flex;
+    align-items:center;
+    gap:7px;
+  }
+
+
+  .logo .dot{
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:var(--blue);
+  }
+
+
+  .skip{
+    font-size:14px;
+    font-weight:600;
+
+    color:var(--muted);
+
+    background:none;
+    padding:6px;
+  }
+
+
+  /* ---------- ILLUSTRATION ---------- */
+
+  .art-wrap{
+    flex:1;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:10px 32px;
+
+    position:relative;
+  }
+
+
+  .art-blob{
+    position:relative;
+
+    width:78%;
+    max-width:260px;
+
+    aspect-ratio:1/1;
+
+    background:
+      linear-gradient(
+        155deg,
+        var(--blue-soft),
+        var(--white)
+      );
+
+    border-radius:
+      50% 50% 46% 54% /
+      54% 46% 54% 46%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+
+  .art-blob svg{
+    width:64%;
+    height:64%;
+  }
+
+
+  /* ---------- COPY ---------- */
+
+  .copy{
+    padding:8px 30px 0;
+
+    text-align:center;
+  }
+
+
+  .copy h1{
+    font-size:26px;
+    font-weight:800;
+
+    letter-spacing:-0.02em;
+    line-height:1.25;
+
+    margin-bottom:12px;
+  }
+
+
+  .copy p{
+    font-size:15px;
+
+    color:var(--muted);
+
+    line-height:1.55;
+
+    max-width:300px;
+
+    margin:0 auto;
+  }
+
+
+  /* ---------- DOTS ---------- */
+
+  .dots{
+    display:flex;
+    justify-content:center;
+
+    gap:7px;
+
+    padding:26px 0 8px;
+  }
+
+
+  .dots span{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--blue-soft);
+  }
+
+
+  .dots span.active{
+    width:20px;
+
+    background:var(--blue);
+
+    border-radius:var(--radius-pill);
+  }
+
+
+  /* ---------- BUTTON AREA ---------- */
+
+  .cta-area{
+    padding:18px 26px 28px;
+  }
+
+
+  .btn-primary{
+    width:100%;
+
+    background:var(--blue);
+    color:var(--white);
+
+    font-size:16px;
+    font-weight:700;
+
+    padding:17px;
+
+    border-radius:var(--radius-pill);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    transition:
+      background .15s ease,
+      transform .15s ease;
+  }
+
+
+  .btn-primary:hover{
+    background:var(--blue-dark);
+    transform:translateY(-1px);
+  }
+
+
+  .btn-primary svg{
+    width:16px;
+    height:16px;
+  }
+
+
+  /* ---------- ANIMATIONS ---------- */
+
+  @media (prefers-reduced-motion: no-preference){
+
+    .top-bar{
+      animation:fadeDown .5s ease both;
+    }
+
+    .art-blob{
+      animation:
+        popIn .6s cubic-bezier(.22,1,.36,1) .1s both;
+    }
+
+    .copy h1{
+      animation:fadeUp .5s ease .3s both;
+    }
+
+    .copy p{
+      animation:fadeUp .5s ease .4s both;
+    }
+
+    .dots{
+      animation:fadeUp .5s ease .5s both;
+    }
+
+    .cta-area{
+      animation:
+        slideUp .55s cubic-bezier(.22,1,.36,1) .55s both;
+    }
+
+  }
+
+
+  @keyframes fadeDown{
+
+    from{
+      opacity:0;
+      transform:translateY(-10px);
+    }
+
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+  }
+
+
+  @keyframes fadeUp{
+
+    from{
+      opacity:0;
+      transform:translateY(14px);
+    }
+
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+  }
+
+
+  @keyframes popIn{
+
+    from{
+      opacity:0;
+      transform:scale(.85);
+    }
+
+    to{
+      opacity:1;
+      transform:scale(1);
+    }
+
+  }
+
+
+  @keyframes slideUp{
+
+    from{
+      opacity:0;
+      transform:translateY(24px);
+    }
+
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+  }
+
+
+  /* ---------- VTpass POPUP ---------- */
+
+  .overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(18, 61, 82, 0.65);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:16px;
+
+    z-index:9999;
+  }
+
+
+  .popup{
+    position:relative;
+
+    width:100%;
+    max-width:480px;
+    height:82vh;
+
+    background:var(--white);
+
+    border:2px solid var(--blue-soft);
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    box-shadow:
+      0 24px 70px rgba(18, 61, 82, 0.25);
+
+    animation:popupIn .25s ease;
+  }
+
+
+  .popup iframe{
+    width:100%;
+    height:100%;
+
+    border:none;
+
+    background:var(--white);
+  }
+
+
+  /* ---------- CLOSE BUTTON ---------- */
+
+  .close-btn{
+    position:absolute;
+
+    top:12px;
+    right:12px;
+
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    /* Same dark Nenxa colour */
+    background:var(--blue-dark);
+    color:var(--white);
+
+    font-size:24px;
+    font-weight:500;
+
+    line-height:1;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    z-index:2;
+
+    box-shadow:
+      0 4px 14px rgba(18, 61, 82, 0.22);
+
+    transition:
+      background .2s ease,
+      transform .2s ease;
+  }
+
+
+  .close-btn:hover{
+    background:var(--blue);
+    transform:scale(1.05);
+  }
+
+
+  @keyframes popupIn{
+
+    from{
+      opacity:0;
+      transform:translateY(15px) scale(.96);
+    }
+
+    to{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+
+  }
+
+</style>
+</head>
+
+
+<body>
+
+<div class="stage">
+
+  <div class="screen">
+
+
+    <!-- TOP BAR -->
+
+    <div class="top-bar">
+
+      <div class="logo">
+
+        <span class="dot"></span>
+
+        Nenxa
+
+      </div>
+
+    </div>
+
+
+    <!-- ILLUSTRATION -->
+
+    <div class="art-wrap">
+
+      <div class="art-blob">
+
+        <svg
+          viewBox="0 0 120 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+
+
+          <!-- Phone -->
+
+          <rect
+            x="34"
+            y="10"
+            width="52"
+            height="100"
+            rx="12"
+            fill="#123D52"/>
+
+
+          <!-- Phone screen -->
+
+          <rect
+            x="39"
+            y="20"
+            width="42"
+            height="70"
+            rx="4"
+            fill="#E7F5FB"/>
+
+
+          <!-- Home button -->
+
+          <circle
+            cx="60"
+            cy="99"
+            r="4"
+            fill="#174A63"/>
+
+
+          <!-- Check box -->
+
+          <rect
+            x="48"
+            y="34"
+            width="24"
+            height="24"
+            rx="6"
+            fill="#174A63"/>
+
+
+          <!-- Check -->
+
+          <path
+            d="M55 46l3 3 6-6"
+            stroke="#FFFFFF"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+
+
+          <!-- Lower bar -->
+
+          <rect
+            x="48"
+            y="64"
+            width="24"
+            height="8"
+            rx="4"
+            fill="#A9D6E8"/>
+
+
+          <!-- Plus circle -->
+
+          <circle
+            cx="94"
+            cy="30"
+            r="14"
+            fill="#174A63"/>
+
+
+          <!-- Plus -->
+
+          <path
+            d="M88 30h12M94 24v12"
+            stroke="#FFFFFF"
+            stroke-width="2.4"
+            stroke-linecap="round"/>
+
+        </svg>
+
+      </div>
+
+    </div>
+
+
+    <!-- TEXT -->
+
+    <div class="copy">
+
+      <h1>
+        Your digital life, made simple
+      </h1>
+
+      <p>
+        Airtime, data, and bills — all paid from one place, confirmed in seconds.
+      </p>
+
+    </div>
+
+
+    <!-- SLIDE DOTS -->
+
+    <div class="dots">
+
+      <span class="active"></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+
+    <!-- BUTTON -->
+
+    <div class="cta-area">
+
+      <button
+        class="btn-primary"
+        onclick="pop()">
+
+        Get started
+
+        <svg
+          viewBox="0 0 16 16"
+          fill="none">
+
+          <path
+            d="M3 8h10M9 4l4 4-4 4"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+
+        </svg>
+
+      </button>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+<script>
+
+function pop(){
+
+  const overlay = document.createElement("div");
+
+  overlay.innerHTML = `
+
+    <div class="popup">
+
+      <button
+        class="close-btn"
+        onclick="this.parentElement.parentElement.remove()">
+
+        ×
+
+      </button>
+
+
+      <iframe
+        src="https://vtpass.com/widget/WWpOd2NHSXlkSFppVjBZd1lWZDRhMWxVUlhsUlIyUjBXVmRzYzB4dFRuWmlVVDA5" frameborder="0"   height="415" >"
+        title="VTpass">
+
+      </iframe>
+
+    </div>
+
+  `;
+
+
+  overlay.className = "overlay";
+
+  document.body.appendChild(overlay);
+
+}
+
+</script>
+
+</body>
+</html>
